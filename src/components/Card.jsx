@@ -18,10 +18,18 @@ export default function Card({ user, handleNextUser, handlePrevUser }) {
         </div>
       </div>
       <div className="buttons">
-        <button onClick={handlePrevUser} type="text">
+        <button
+          disabled={id === 1 ? true : false}
+          onClick={handlePrevUser}
+          type="text"
+        >
           Prev
         </button>
-        <button onClick={handleNextUser} type="text">
+        <button
+          disabled={id === 10 ? true : false}
+          onClick={handleNextUser}
+          type="text"
+        >
           Next
         </button>
       </div>
