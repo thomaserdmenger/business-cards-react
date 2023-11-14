@@ -33,8 +33,6 @@ export default function App() {
     fetchData();
   }, [id]);
 
-  console.log(id);
-
   const handleNextUser = () => {
     if (id < 10) {
       setId((prevId) => prevId + 1);
