@@ -1,0 +1,56 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightskyblue;
+  font-size: 0.8rem;
+}
+
+.card-container {
+  background-color: white;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 10px;
+  min-width: 250px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-data-top,
+.user-data-middle {
+  margin-bottom: 0.5rem;
+}
+
+.user-name {
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+  font-size: 1rem;
+}
+
+.user-handle {
+  color: hsla(0, 0%, 0%, 0.6);
+}
+
+.user-street,
+.user-phone {
+  margin-bottom: 0.1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 0.2rem;
+}
+
+.buttons button {
+  padding: 0.5rem;
+  cursor: pointer;
+}
