@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function Card({ user }) {
+export default function Card({ user, handleNextUser, handlePrevUser }) {
   const { id, name, username, phone, email, website } = user;
 
   return (
@@ -18,8 +18,12 @@ export default function Card({ user }) {
         </div>
       </div>
       <div className="buttons">
-        <button type="text">Prev</button>
-        <button type="text">Next</button>
+        <button onClick={handlePrevUser} type="text">
+          Prev
+        </button>
+        <button onClick={handleNextUser} type="text">
+          Next
+        </button>
       </div>
     </React.Fragment>
   );

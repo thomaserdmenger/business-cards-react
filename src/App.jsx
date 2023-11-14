@@ -33,6 +33,20 @@ export default function App() {
     fetchData();
   }, [id]);
 
+  console.log(id);
+
+  const handleNextUser = () => {
+    if (id < 10) {
+      setId((prevId) => prevId + 1);
+    }
+  };
+
+  const handlePrevUser = () => {
+    if (id > 1) {
+      setId((prevId) => prevId - 1);
+    }
+  };
+
   if (loading && !error) {
     return <p>Loading ...</p>;
   }
@@ -43,7 +57,11 @@ export default function App() {
 
   return (
     <main>
-      <Card user={user} />
+      <Card
+        user={user}
+        handleNextUser={handleNextUser}
+        handlePrevUser={handlePrevUser}
+      />
     </main>
   );
 }
