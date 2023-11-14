@@ -10,26 +10,36 @@ export default function App() {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     const fetchData = async () => {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${id}`,
-        { signal }
-      );
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/users/${id}`
+        );
 
-      const data = await response.json();
-      setUser(data);
-      setLoading(false);
+        if (!response.ok) {
+          const errorMessage = `There is a network error: ${response.status}`;
+          throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
-
-    return () => {
-      controller.abort();
-    };
   }, [id]);
+
+  if (loading && !error) {
+    return <p>Loading ...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <main>
