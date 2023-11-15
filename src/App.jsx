@@ -10,10 +10,14 @@ export default function App() {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://jsonplaceholder.typicode.com/users/${id}`
+          `https://jsonplaceholder.typicode.com/users/${id}`,
+          { signal }
         );
 
         if (!response.ok) {
@@ -23,6 +27,10 @@ export default function App() {
 
         const data = await response.json();
         setUser(data);
+
+        return () => {
+          controller.abort();
+        };
       } catch (error) {
         setError(error.message);
       } finally {
