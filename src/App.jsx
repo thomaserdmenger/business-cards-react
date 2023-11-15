@@ -7,17 +7,18 @@ export default function App() {
   const [id, setId] = React.useState(1);
   const [user, setUser] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    let ignore = false;
 
     const fetchData = async () => {
       try {
+        setLoading(true);
+        setError(null);
+
         const response = await fetch(
-          `https://jsonplaceholder.typicode.com/users/${id}`,
-          { signal }
+          `https://jsonplaceholder.typicode.com/users/${id}`
         );
 
         if (!response.ok) {
@@ -29,7 +30,7 @@ export default function App() {
         setUser(data);
 
         return () => {
-          controller.abort();
+          ignore = true;
         };
       } catch (error) {
         setError(error.message);
