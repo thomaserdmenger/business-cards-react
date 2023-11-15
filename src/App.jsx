@@ -21,6 +21,8 @@ export default function App() {
           `https://jsonplaceholder.typicode.com/users/${id}`
         );
 
+        if (ignore) return;
+
         if (!response.ok) {
           const errorMessage = `There is a network error: ${response.status}`;
           throw new Error(errorMessage);
