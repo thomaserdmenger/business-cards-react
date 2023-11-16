@@ -13,35 +13,38 @@ export default function App() {
     let ignore = false;
 
     const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+      setLoading(true);
 
+      try {
         const response = await fetch(
           `https://jsonplaceholder.typicode.com/users/${id}`
         );
-
-        if (ignore) return;
 
         if (!response.ok) {
           const errorMessage = `There is a network error: ${response.status}`;
           throw new Error(errorMessage);
         }
 
-        const data = await response.json();
-        setUser(data);
-
-        return () => {
-          ignore = true;
-        };
+        if (ignore === false) {
+          const data = await response.json();
+          setUser(data);
+          setLoading(false);
+          setError(null);
+        }
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        if (ignore === false) {
+          setError(error);
+          setLoading(false);
+          setUser(null);
+        }
       }
     };
 
     fetchData();
+
+    return () => {
+      ignore = true;
+    };
   }, [id]);
 
   const handleNextUser = () => {
@@ -61,7 +64,7 @@ export default function App() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error.message}</p>;
   }
 
   return (
